@@ -19,7 +19,8 @@
       "@home/*": ["./src/home/*"],
       "@favourite/*": ["./src/favourite/*"],
       "@uikit/*": ["./src/uikit/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@theme/*": ["./src/theme/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,3 +1,10 @@
+import { Typography } from "@mui/material";
+import Layout from "@uikit/layout/Layout";
+
 export default function Page() {
-  return <div>Hello From Detail</div>;
+  return (
+    <Layout>
+      <Typography variant="body2">HELLO FROM HOME DETAIL PAGE</Typography>
+    </Layout>
+  );
 }
