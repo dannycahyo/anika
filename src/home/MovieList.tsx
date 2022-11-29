@@ -1,16 +1,7 @@
-import { experimentalStyled as styled } from "@mui/material/styles";
-import { Grid, Box, Paper, Typography } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
 
 function MovieList() {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
   const mockDatas = [
     {
       title: "Jujitsu Kaisen",
