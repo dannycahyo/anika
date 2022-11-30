@@ -1,34 +1,12 @@
 import { Grid, Box, Typography } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
+import { Anime } from "src/types/anime";
 
-function MovieList() {
-  const mockDatas = [
-    {
-      title: "Jujitsu Kaisen",
-      score: 8,
-    },
-    {
-      title: "Spy X Family",
-      score: 8,
-    },
-    {
-      title: "Attack On Titan",
-      score: 8,
-    },
-    {
-      title: "One Piece",
-      score: 8,
-    },
-    {
-      title: "Demon Slayer",
-      score: 8,
-    },
-    {
-      title: "Naruto",
-      score: 8,
-    },
-  ];
+type Props = {
+  animes: Anime[];
+};
 
+function MovieList({ animes }: Props) {
   return (
     <Box>
       <Typography sx={{ mt: 3 }} variant="h5">
@@ -40,9 +18,13 @@ function MovieList() {
         spacing={{ xs: 2, md: 2 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {mockDatas.map(({ title, score }) => (
+        {animes.map(({ title, score, images }) => (
           <Grid item xs={4} sm={4} md={3} key={title}>
-            <AnimeCard title={title} score={score} />
+            <AnimeCard
+              title={title}
+              score={score ?? 0}
+              imageUrl={images.jpg.image_url ?? ""}
+            />
           </Grid>
         ))}
       </Grid>

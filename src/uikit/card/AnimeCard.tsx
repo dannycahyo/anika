@@ -11,6 +11,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 type Props = {
   title: string;
   score: number;
+  imageUrl: string;
 };
 
 namespace Caption {
@@ -18,17 +19,22 @@ namespace Caption {
   export const seeAnime = "See Anime";
 }
 
-function GeneralCard({ title, score }: Props) {
+function GeneralCard({ title, score, imageUrl }: Props) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="194"
-        src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-        alt="Paella dish"
-      />
+      <CardMedia component="img" height="194" src={imageUrl} alt={title} />
       <CardContent>
-        <Typography variant="h5">{title}</Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            fontSize: 16,
+            textOverflow: "ellipsis",
+            overflowX: "hidden",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {title}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           {`${score} ${Caption.score}`}
         </Typography>
