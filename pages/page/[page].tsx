@@ -1,5 +1,5 @@
 import React from "react";
-import HomePage from "@home/HomePage";
+import HomeScreen from "@home/HomeScreen";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { getAnimeList } from "@utils/fetcher/getAnimeList";
 import { GetServerSideProps } from "next";
@@ -13,7 +13,7 @@ type Params = {
 };
 
 export default function Page({ page }: Props) {
-  return <HomePage page={page} />;
+  return <HomeScreen page={page} />;
 }
 
 export const getServerSideProps: GetServerSideProps<Props, Params> = async ({

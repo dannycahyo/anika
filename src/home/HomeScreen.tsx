@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Layout from "@uikit/layout/Layout";
-import MovieList from "@home/MovieList";
+import AnimeList from "@home/Home__AnimeList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAnimeList } from "@utils/fetcher/getAnimeList";
 import { Anime } from "src/types/anime";
@@ -50,7 +50,7 @@ function HomePage({ page }: Props) {
 
   return (
     <Layout>
-      <MovieList animes={data?.data ?? []} />
+      <AnimeList animes={data?.data ?? []} />
       <Grid
         container
         direction="row"

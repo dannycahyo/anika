@@ -1,12 +1,23 @@
-import Layout from "@uikit/layout/Layout";
-import { Box, Typography } from "@mui/material";
+import FavouriteScreen from "@favourite/FavouriteScreen";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { getFavouriteAnimeList } from "@utils/fetcher/getFavouriteAnimeList";
+import { Constant } from "@favourite/FavouriteScreen";
 
 export default function Page() {
-  return (
-    <Layout>
-      <Box>
-        <Typography variant="body1">HELLO FROM FAVOURITE PAGE</Typography>
-      </Box>
-    </Layout>
+  return <FavouriteScreen />;
+}
+
+export async function getServerSideProps(): Promise<{
+  props: {};
+}> {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["animes"], () =>
+    getFavouriteAnimeList(Constant.animeLimit)
   );
+
+  return {
+    props: {
+      dehydrate: dehydrate(queryClient),
+    },
+  };
 }

@@ -1,10 +1,9 @@
-import React from "react";
-import HomePage from "@home/HomePage";
+import HomeScreen from "@home/HomeScreen";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { getAnimeList } from "@utils/fetcher/getAnimeList";
 
 export default function Page({ page = "1" }) {
-  return <HomePage page={page} />;
+  return <HomeScreen page={page} />;
 }
 
 export async function getServerSideProps(): Promise<{

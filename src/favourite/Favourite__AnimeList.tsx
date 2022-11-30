@@ -1,17 +1,25 @@
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Stack } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
 import { Anime } from "src/types/anime";
+
+namespace Caption {
+  export const favAnimeListTitle = "Favourite Anime List";
+  export const favAnimeListDesc = "These are some of your favorites animes";
+}
 
 type Props = {
   animes: Anime[];
 };
 
-function MovieList({ animes }: Props) {
+function AnimeList({ animes }: Props) {
   return (
-    <Box>
-      <Typography sx={{ mt: 3 }} variant="h5">
-        Anime List
-      </Typography>
+    <Box sx={{ pb: 4 }}>
+      <Stack spacing={2}>
+        <Typography sx={{ mt: 3 }} variant="h5">
+          {Caption.favAnimeListTitle}
+        </Typography>
+        <Typography variant="body1">{Caption.favAnimeListDesc}</Typography>
+      </Stack>
       <Grid
         sx={{ pt: 2 }}
         container
@@ -32,4 +40,4 @@ function MovieList({ animes }: Props) {
   );
 }
 
-export default MovieList;
+export default AnimeList;
