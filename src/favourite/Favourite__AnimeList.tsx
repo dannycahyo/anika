@@ -1,6 +1,7 @@
 import { Grid, Box, Typography, Stack } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
 import { Anime } from "src/types/anime";
+import Link from "next/link";
 
 namespace Caption {
   export const favAnimeListTitle = "Favourite Anime List";
@@ -26,13 +27,15 @@ function AnimeList({ animes }: Props) {
         spacing={{ xs: 2, md: 2 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {animes.map(({ title, score, images }) => (
+        {animes.map(({ title, score, images, mal_id }) => (
           <Grid item xs={4} sm={4} md={3} key={title}>
-            <AnimeCard
-              title={title}
-              score={score ?? 0}
-              imageUrl={images.jpg.image_url ?? ""}
-            />
+            <Link href={`/detail/${mal_id}`}>
+              <AnimeCard
+                title={title}
+                score={score ?? 0}
+                imageUrl={images.jpg.image_url ?? ""}
+              />
+            </Link>
           </Grid>
         ))}
       </Grid>
