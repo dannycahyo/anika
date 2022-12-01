@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Anime } from "src/types/anime";
 import { getAnimeById } from "@utils/fetcher/getAnimeById";
 import { animeDefaultValue } from "@utils/constant/animeDefaultValue";
-import DetailInfo from "@detail/AnimeDetail__DetailInfo";
+import DetailInfo from "src/animeDetail/AnimeDetail__DetailInfo";
 
 type Props = {
   id: string;
