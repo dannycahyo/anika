@@ -57,9 +57,10 @@ function Recommendation() {
     queryFn: () => getRecommendationAnimeList(Contanst.animeScore),
   });
   const animes = data?.data ?? [];
+
   return (
     <Container maxWidth="lg" sx={{ pb: 4 }}>
-      <Typography sx={{ mt: 1, mb: 2 }} variant="h5">
+      <Typography sx={{ mt: 1, mb: 2, ml: 4 }} variant="h5">
         {Caption.animeRecommendation}
       </Typography>
       <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
