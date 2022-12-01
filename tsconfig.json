@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@home/*": ["./src/home/*"],
+      "@detail/*": ["./src/detail/*"],
       "@favourite/*": ["./src/favourite/*"],
       "@uikit/*": ["./src/uikit/*"],
       "@utils/*": ["./src/utils/*"],

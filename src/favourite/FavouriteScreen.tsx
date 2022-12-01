@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from "@uikit/layout/Layout";
 import AnimeList from "@favourite/Favourite__AnimeList";
 import { useQuery } from "@tanstack/react-query";

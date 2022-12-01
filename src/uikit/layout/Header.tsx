@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <Grid container justifyContent="space-between" alignItems="center">
-      <Grid>
+      <Grid item>
         <Link href="/">
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <MovieCreationIcon sx={{ color: "white", mr: 1 }} />
@@ -16,7 +16,7 @@ export default function Header() {
           </Box>
         </Link>
       </Grid>
-      <Grid>
+      <Grid item>
         <Link href="/favourite">
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <FavoriteIcon sx={{ color: "white", mr: 1 }} />
