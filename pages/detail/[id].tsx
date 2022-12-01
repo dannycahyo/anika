@@ -1,4 +1,4 @@
-import AnimeDetailScreen from "@detail/AnimeDetailScreen";
+import AnimeDetailScreen from "@animeDetail/AnimeDetailScreen";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { getAnimeById } from "@utils/fetcher/getAnimeById";
 import { GetServerSideProps } from "next";
