@@ -61,12 +61,12 @@ function DetailInfo({ anime }: Props) {
   const { title, year, score, synopsis, trailer, images, genres, licensors } =
     anime;
 
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [isOpenVideo, setIsOpenVideo] = React.useState<boolean>(false);
   const handleClose = () => {
-    setOpen(false);
+    setIsOpenVideo(false);
   };
   const handleToggle = () => {
-    setOpen(!open);
+    setIsOpenVideo(!isOpenVideo);
   };
 
   const isMobileSize = useMediaQuery("(max-width:460px)");
@@ -116,7 +116,7 @@ function DetailInfo({ anime }: Props) {
                 color: "#fff",
                 zIndex: (theme) => theme.zIndex.drawer + 1,
               }}
-              open={open}
+              open={isOpenVideo}
               onClick={handleClose}
             >
               <CardMedia

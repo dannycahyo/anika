@@ -1,11 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Layout from "@uikit/layout/Layout";
+import AnimeListLoading from "@uikit/loading/AnimeListLoading";
+import GeneralError from "@uikit/error/GeneralError";
 import AnimeList from "@home/Home__AnimeList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAnimeList } from "@utils/fetcher/getAnimeList";
 import { Anime } from "src/types/anime";
 import { Pagination } from "src/types/pagination";
+import { renderIfTrue } from "@utils/common/rendering";
 import {
   Pagination as PaginationComponent,
   Grid,
@@ -27,7 +30,7 @@ function HomePage({ page }: Props) {
 
   const isMobileSize = useMediaQuery("(max-width:460px)");
 
-  const { data } = useQuery<Data>({
+  const { data, isLoading, isError } = useQuery<Data>({
     queryKey: ["animes"],
     queryFn: () => getAnimeList(parseInt(page)),
     keepPreviousData: true,
@@ -57,6 +60,8 @@ function HomePage({ page }: Props) {
   return (
     <Layout>
       <AnimeList animes={data?.data ?? []} />
+      {renderIfTrue(isLoading, <AnimeListLoading />)}
+      {renderIfTrue(isError, <GeneralError condition={isError} />)}
       <Grid
         container
         direction="row"

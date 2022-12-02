@@ -22,7 +22,6 @@ function AnimeList({ animes }: Props) {
         container
         spacing={{ xs: 2, md: 2 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
-        justifyContent="center"
         alignItems="center"
       >
         {animes.map(({ title, score, images, mal_id }) => (
