@@ -6,7 +6,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAnimeList } from "@utils/fetcher/getAnimeList";
 import { Anime } from "src/types/anime";
 import { Pagination } from "src/types/pagination";
-import { Pagination as PaginationComponent, Grid } from "@mui/material";
+import {
+  Pagination as PaginationComponent,
+  Grid,
+  useMediaQuery,
+} from "@mui/material";
 
 type Props = {
   page: string;
@@ -20,6 +24,8 @@ type Data = {
 function HomePage({ page }: Props) {
   const router = useRouter();
   const queryClient = useQueryClient();
+
+  const isMobileSize = useMediaQuery("(max-width:460px)");
 
   const { data } = useQuery<Data>({
     queryKey: ["animes"],
@@ -61,7 +67,7 @@ function HomePage({ page }: Props) {
         <PaginationComponent
           showFirstButton
           showLastButton
-          size="large"
+          size={isMobileSize ? "small" : "large"}
           shape="rounded"
           color="primary"
           page={data?.pagination.current_page ?? 0}
