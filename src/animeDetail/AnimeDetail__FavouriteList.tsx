@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { renderComponentOrNull } from "@utils/common/rendering";
 import useFavouriteAnimeStore from "@hooks/useFavouriteAnimeStore";
 
 namespace Caption {
