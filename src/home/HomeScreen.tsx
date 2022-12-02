@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Layout from "@uikit/layout/Layout";
 import AnimeListLoading from "@uikit/loading/AnimeListLoading";
-import GeneralError from "@uikit/error/GeneralError";
+import GeneralErrorModal from "@uikit/error/GeneralErrorModal";
 import AnimeList from "@home/Home__AnimeList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAnimeList } from "@utils/fetcher/getAnimeList";
@@ -61,7 +61,7 @@ function HomePage({ page }: Props) {
     <Layout>
       <AnimeList animes={data?.data ?? []} />
       {renderIfTrue(isLoading, <AnimeListLoading />)}
-      {renderIfTrue(isError, <GeneralError condition={isError} />)}
+      {renderIfTrue(isError, <GeneralErrorModal condition={isError} />)}
       <Grid
         container
         direction="row"

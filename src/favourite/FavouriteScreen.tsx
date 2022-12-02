@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Anime } from "src/types/anime";
 import { getFavouriteAnimeList } from "@utils/fetcher/getFavouriteAnimeList";
 import { renderIfTrue } from "@utils/common/rendering";
-import GeneralError from "@uikit/error/GeneralError";
+import GeneralErrorModal from "@uikit/error/GeneralErrorModal";
 
 export namespace Constant {
   export const animeLimit = 16;
@@ -25,7 +25,7 @@ function FavouriteScreen() {
     <Layout>
       <AnimeList animes={data?.data ?? []} />
       {renderIfTrue(isLoading, <AnimeListLoading />)}
-      {renderIfTrue(isError, <GeneralError condition={isError} />)}
+      {renderIfTrue(isError, <GeneralErrorModal condition={isError} />)}
     </Layout>
   );
 }

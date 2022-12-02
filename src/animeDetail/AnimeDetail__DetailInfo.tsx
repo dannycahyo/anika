@@ -11,11 +11,13 @@ import {
   Backdrop,
   CardMedia,
   useMediaQuery,
+  Skeleton,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Anime } from "src/types/anime";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import AnimeLoadingCard from "@uikit/card/AnimeLoadingCard";
 
 namespace Caption {
   export const year = "Year";
@@ -30,6 +32,7 @@ namespace Caption {
 
 type Props = {
   anime: Anime;
+  isLoading: boolean;
 };
 
 type AdditionalInfoProps = {
@@ -54,7 +57,7 @@ function AdditionalInfo({ title, name }: AdditionalInfoProps) {
   );
 }
 
-function DetailInfo({ anime }: Props) {
+function DetailInfo({ anime, isLoading }: Props) {
   const router = useRouter();
 
   const handleBackClick = (): void => router.back();
@@ -105,12 +108,17 @@ function DetailInfo({ anime }: Props) {
           sx={{ display: "flex" }}
         >
           <Box onClick={() => handleToggle()} sx={{ cursor: "pointer" }}>
-            <Image
-              src={images.webp.large_image_url ?? ""}
-              alt={Caption.imageAlt}
-              height={260}
-              width={isMobileSize ? 300 : 340}
-            />
+            {isLoading ? (
+              <AnimeLoadingCard />
+            ) : (
+              <Image
+                src={images.webp.large_image_url ?? ""}
+                alt={Caption.imageAlt}
+                height={260}
+                width={isMobileSize ? 300 : 340}
+              />
+            )}
+
             <Backdrop
               sx={{
                 color: "#fff",
@@ -136,7 +144,6 @@ function DetailInfo({ anime }: Props) {
           alignItems="center"
           sx={{ pt: 2 }}
         >
-          <Typography variant="h5">{title}</Typography>
           <Divider sx={{ my: 1 }} />
           <Stack direction="row" alignItems="center">
             <Stack
@@ -202,7 +209,7 @@ function DetailInfo({ anime }: Props) {
           {Caption.synopsis}
         </Typography>
         <Typography paragraph textAlign="justify" mt={1}>
-          {synopsis}
+          {isLoading ? <Skeleton /> : `${synopsis}`}
         </Typography>
       </Box>
     </Container>

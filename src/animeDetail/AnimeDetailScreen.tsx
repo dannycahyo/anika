@@ -7,6 +7,7 @@ import { animeDefaultValue } from "@utils/constant/animeDefaultValue";
 import DetailInfo from "@animeDetail/AnimeDetail__DetailInfo";
 import FavouriteList from "@animeDetail/AnimeDetail__FavouriteList";
 import Recommendation from "@animeDetail/AnimeDetail__Recommendation";
+import GeneralError from "@uikit/error/GeneralError";
 
 type Props = {
   id: string;
@@ -16,8 +17,14 @@ type Data = {
   data: Anime;
 };
 
+namespace Caption {
+  export const errorTitle = "Upps!, Error!";
+  export const errorDesc =
+    "There is something wrong when getting anime detail info";
+}
+
 function AnimeDetailScreen({ id }: Props) {
-  const { data } = useQuery<Data>({
+  const { data, isLoading, isError } = useQuery<Data>({
     queryKey: ["animeById"],
     queryFn: () => getAnimeById(id),
   });
@@ -33,7 +40,17 @@ function AnimeDetailScreen({ id }: Props) {
 
   return (
     <Layout>
-      <DetailInfo anime={data?.data ?? animeDefaultValue} />
+      {isError ? (
+        <GeneralError
+          errorTitle={Caption.errorTitle}
+          errorDescription={Caption.errorDesc}
+        />
+      ) : (
+        <DetailInfo
+          anime={data?.data ?? animeDefaultValue}
+          isLoading={isLoading}
+        />
+      )}
       <Recommendation />
       <FavouriteList anime={data?.data ?? animeDefaultValue} />
     </Layout>

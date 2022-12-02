@@ -9,6 +9,8 @@ import { renderIfTrue } from "@utils/common/rendering";
 import { Anime } from "src/types/anime";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import GeneralError from "@uikit/error/GeneralError";
+import AnimeLoadingCard from "@uikit/card/AnimeLoadingCard";
 
 type Data = {
   data: Anime[];
@@ -20,6 +22,9 @@ namespace Contanst {
 
 namespace Caption {
   export const animeRecommendation = "Recommended Anime";
+  export const errorTitle = "Upps, Error!";
+  export const errorDesc =
+    "There is something wrong when get anime recommendation";
 }
 
 function LeftArrow() {
@@ -54,7 +59,7 @@ function RightArrow() {
 }
 
 function Recommendation() {
-  const { data } = useQuery<Data>({
+  const { data, isLoading, isError } = useQuery<Data>({
     queryKey: ["recommendationAnime"],
     queryFn: () => getRecommendationAnimeList(Contanst.animeScore),
   });
@@ -67,22 +72,40 @@ function Recommendation() {
       <Typography sx={{ mt: 1, mb: 2, ml: 4 }} variant="h5">
         {Caption.animeRecommendation}
       </Typography>
-      <ScrollMenu
-        LeftArrow={renderIfTrue(isNotMobileSize, <LeftArrow />)}
-        RightArrow={renderIfTrue(isNotMobileSize, <RightArrow />)}
-      >
-        {animes.map(({ title, score, images, mal_id }) => (
-          <Box key={mal_id} width="260px" height="400px" sx={{ mx: 1 }}>
-            <Link href={`/detail/${mal_id}`}>
-              <AnimeCard
-                title={title}
-                score={score ?? 0}
-                imageUrl={images.jpg.image_url ?? ""}
-              />
-            </Link>
-          </Box>
-        ))}
-      </ScrollMenu>
+      {isError ? (
+        <GeneralError
+          errorTitle={Caption.errorTitle}
+          errorDescription={Caption.errorDesc}
+        />
+      ) : (
+        <ScrollMenu
+          LeftArrow={renderIfTrue(isNotMobileSize, <LeftArrow />)}
+          RightArrow={renderIfTrue(isNotMobileSize, <RightArrow />)}
+        >
+          {isLoading
+            ? Array.from(new Array(3))
+            : animes.map((anime) => (
+                <Box
+                  key={anime.mal_id}
+                  width="260px"
+                  height="400px"
+                  sx={{ mx: 1 }}
+                >
+                  <Link href={`/detail/${anime.mal_id}`}>
+                    {anime ? (
+                      <AnimeCard
+                        title={anime.title}
+                        score={anime.score ?? 0}
+                        imageUrl={anime.images.jpg.image_url ?? ""}
+                      />
+                    ) : (
+                      <AnimeLoadingCard />
+                    )}
+                  </Link>
+                </Box>
+              ))}
+        </ScrollMenu>
+      )}
     </Box>
   );
 }
