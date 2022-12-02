@@ -59,13 +59,13 @@ function Recommendation() {
   const animes = data?.data ?? [];
 
   return (
-    <Container maxWidth="lg" sx={{ pb: 4 }}>
+    <Box>
       <Typography sx={{ mt: 1, mb: 2, ml: 4 }} variant="h5">
         {Caption.animeRecommendation}
       </Typography>
       <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
         {animes.map(({ title, score, images, mal_id }) => (
-          <Box key={mal_id} width="300px" height="400px" sx={{ mx: 1 }}>
+          <Box key={mal_id} width="260px" height="400px" sx={{ mx: 1 }}>
             <AnimeCard
               title={title}
               score={score ?? 0}
@@ -74,7 +74,7 @@ function Recommendation() {
           </Box>
         ))}
       </ScrollMenu>
-    </Container>
+    </Box>
   );
 }
 

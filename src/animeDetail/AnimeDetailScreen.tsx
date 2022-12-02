@@ -4,6 +4,7 @@ import { Anime } from "src/types/anime";
 import { getAnimeById } from "@utils/fetcher/getAnimeById";
 import { animeDefaultValue } from "@utils/constant/animeDefaultValue";
 import DetailInfo from "@animeDetail/AnimeDetail__DetailInfo";
+import FavouriteList from "@animeDetail/AnimeDetail__FavouriteList";
 import Recommendation from "@animeDetail/AnimeDetail__Recommendation";
 
 type Props = {
@@ -24,6 +25,7 @@ function AnimeDetailScreen({ id }: Props) {
     <Layout>
       <DetailInfo anime={data?.data ?? animeDefaultValue} />
       <Recommendation />
+      <FavouriteList anime={data?.data ?? animeDefaultValue} />
     </Layout>
   );
 }
