@@ -59,7 +59,12 @@ function FavouriteList({ anime }: Props) {
           </Grid>
         )}
       </Grid>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ pt: 2 }}
+      >
         {isEmptyAnimes ? (
           <Button
             variant="contained"
@@ -77,7 +82,6 @@ function FavouriteList({ anime }: Props) {
             {Caption.removeFromFavourites}
           </Button>
         )}
-        ,
       </Grid>
     </Box>
   );

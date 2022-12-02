@@ -10,6 +10,7 @@ import {
   Divider,
   Backdrop,
   CardMedia,
+  useMediaQuery,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Anime } from "src/types/anime";
@@ -68,6 +69,8 @@ function DetailInfo({ anime }: Props) {
     setOpen(!open);
   };
 
+  const isMobileSize = useMediaQuery("(max-width:460px)");
+
   return (
     <Container maxWidth="md">
       <Grid
@@ -92,14 +95,21 @@ function DetailInfo({ anime }: Props) {
           {Caption.animeDetail}
         </Typography>
       </Grid>
-      <Grid container justifyContent="center" alignItems="flex-start">
-        <Grid item md={6}>
+      <Grid container>
+        <Grid
+          item
+          sm={10}
+          md={6}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ display: "flex" }}
+        >
           <Box onClick={() => handleToggle()} sx={{ cursor: "pointer" }}>
             <Image
               src={images.webp.large_image_url ?? ""}
               alt={Caption.imageAlt}
               height={260}
-              width={340}
+              width={isMobileSize ? 300 : 340}
             />
             <Backdrop
               sx={{
@@ -118,7 +128,14 @@ function DetailInfo({ anime }: Props) {
             </Backdrop>
           </Box>
         </Grid>
-        <Grid item md={6}>
+        <Grid
+          item
+          sm={10}
+          md={6}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ pt: 2 }}
+        >
           <Typography variant="h5">{title}</Typography>
           <Divider sx={{ my: 1 }} />
           <Stack direction="row" alignItems="center">

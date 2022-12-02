@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { Typography, IconButton, Box } from "@mui/material";
+import { Typography, IconButton, Box, useMediaQuery } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
 import { useQuery } from "@tanstack/react-query";
 import { getRecommendationAnimeList } from "@utils/fetcher/getRecommendationAnimeList.ts";
+import { renderIfTrue } from "@utils/common/rendering";
 import { Anime } from "src/types/anime";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -59,12 +60,17 @@ function Recommendation() {
   });
   const animes = data?.data ?? [];
 
+  const isNotMobileSize = useMediaQuery("(min-width:460px)");
+
   return (
     <Box>
       <Typography sx={{ mt: 1, mb: 2, ml: 4 }} variant="h5">
         {Caption.animeRecommendation}
       </Typography>
-      <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
+      <ScrollMenu
+        LeftArrow={renderIfTrue(isNotMobileSize, <LeftArrow />)}
+        RightArrow={renderIfTrue(isNotMobileSize, <RightArrow />)}
+      >
         {animes.map(({ title, score, images, mal_id }) => (
           <Box key={mal_id} width="260px" height="400px" sx={{ mx: 1 }}>
             <Link href={`/detail/${mal_id}`}>
