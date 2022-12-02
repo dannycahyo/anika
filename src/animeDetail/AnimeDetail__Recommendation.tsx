@@ -1,6 +1,7 @@
 import React from "react";
+import Link from "next/link";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { Container, Typography, IconButton, Box } from "@mui/material";
+import { Typography, IconButton, Box } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
 import { useQuery } from "@tanstack/react-query";
 import { getRecommendationAnimeList } from "@utils/fetcher/getRecommendationAnimeList.ts";
@@ -66,11 +67,13 @@ function Recommendation() {
       <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
         {animes.map(({ title, score, images, mal_id }) => (
           <Box key={mal_id} width="260px" height="400px" sx={{ mx: 1 }}>
-            <AnimeCard
-              title={title}
-              score={score ?? 0}
-              imageUrl={images.jpg.image_url ?? ""}
-            />
+            <Link href={`/detail/${mal_id}`}>
+              <AnimeCard
+                title={title}
+                score={score ?? 0}
+                imageUrl={images.jpg.image_url ?? ""}
+              />
+            </Link>
           </Box>
         ))}
       </ScrollMenu>

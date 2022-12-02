@@ -1,5 +1,6 @@
+import React from "react";
 import Layout from "@uikit/layout/Layout";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Anime } from "src/types/anime";
 import { getAnimeById } from "@utils/fetcher/getAnimeById";
 import { animeDefaultValue } from "@utils/constant/animeDefaultValue";
@@ -20,6 +21,15 @@ function AnimeDetailScreen({ id }: Props) {
     queryKey: ["animeById"],
     queryFn: () => getAnimeById(id),
   });
+
+  const queryClient = useQueryClient();
+
+  React.useEffect(() => {
+    queryClient.fetchQuery({
+      queryKey: ["animeById"],
+      queryFn: () => getAnimeById(id),
+    });
+  }, [id, queryClient]);
 
   return (
     <Layout>
