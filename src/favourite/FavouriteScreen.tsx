@@ -1,8 +1,11 @@
 import Layout from "@uikit/layout/Layout";
 import AnimeList from "@favourite/Favourite__AnimeList";
+import AnimeListLoading from "@uikit/loading/AnimeListLoading";
 import { useQuery } from "@tanstack/react-query";
 import { Anime } from "src/types/anime";
 import { getFavouriteAnimeList } from "@utils/fetcher/getFavouriteAnimeList";
+import { renderIfTrue } from "@utils/common/rendering";
+import GeneralError from "@uikit/error/GeneralError";
 
 export namespace Constant {
   export const animeLimit = 16;
@@ -13,7 +16,7 @@ type Data = {
 };
 
 function FavouriteScreen() {
-  const { data } = useQuery<Data>({
+  const { data, isLoading, isError } = useQuery<Data>({
     queryKey: ["favouriteAnimes"],
     queryFn: () => getFavouriteAnimeList(Constant.animeLimit),
   });
@@ -21,6 +24,8 @@ function FavouriteScreen() {
   return (
     <Layout>
       <AnimeList animes={data?.data ?? []} />
+      {renderIfTrue(isLoading, <AnimeListLoading />)}
+      {renderIfTrue(isError, <GeneralError condition={isError} />)}
     </Layout>
   );
 }
