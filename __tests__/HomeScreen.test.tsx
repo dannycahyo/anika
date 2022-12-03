@@ -23,10 +23,10 @@ describe("Loads and display Home Screen", () => {
 
     expect(loadingText).toBeInTheDocument();
 
-    const heading = screen.getByRole("heading", {
+    const homeTitle = screen.getByRole("heading", {
       name: "Anime List",
     });
 
-    expect(heading).toBeInTheDocument();
+    expect(homeTitle).toBeInTheDocument();
   });
 });
