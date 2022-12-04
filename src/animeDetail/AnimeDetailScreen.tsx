@@ -5,7 +5,7 @@ import { Anime } from "src/types/anime";
 import { getAnimeById } from "@utils/fetcher/getAnimeById";
 import { animeDefaultValue } from "@utils/constant/animeDefaultValue";
 import DetailInfo from "@animeDetail/AnimeDetail__DetailInfo";
-import FavouriteList from "@animeDetail/AnimeDetail__FavouriteList";
+import Favourite from "@animeDetail/AnimeDetail__Favourite";
 import Recommendation from "@animeDetail/AnimeDetail__Recommendation";
 import GeneralError from "@uikit/error/GeneralError";
 
@@ -38,6 +38,15 @@ function AnimeDetailScreen({ id }: Props) {
     });
   }, [id, queryClient]);
 
+  const { title, score, mal_id, images } = data?.data ?? animeDefaultValue;
+
+  const animeFavouriteData = {
+    title,
+    score,
+    mal_id,
+    images,
+  };
+
   return (
     <Layout>
       {isError ? (
@@ -49,7 +58,7 @@ function AnimeDetailScreen({ id }: Props) {
         <DetailInfo id={id} />
       )}
       <Recommendation />
-      <FavouriteList anime={data?.data ?? animeDefaultValue} />
+      <Favourite anime={animeFavouriteData} />
     </Layout>
   );
 }

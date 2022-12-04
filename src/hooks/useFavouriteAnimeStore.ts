@@ -1,41 +1,45 @@
+import { AnimeCard } from "src/types/animeCard";
 import create from "zustand";
-import { Anime } from "../types/anime";
+import { favAnimes } from "../../__mocks__/data/favouriteAnimes";
 
 type State = {
-  animes: Anime[];
+  animes: AnimeCard[];
 };
 
 type Action = {
-  addAnime: (anime: Anime) => void;
-  removeAnime: () => void;
+  addAnime: (anime: AnimeCard) => void;
+  removeAnime: (animeId: string) => void;
 };
 
 namespace StoreFunction {
-  export const addAnime = (animes: Anime[], anime: Anime): Anime[] => {
+  export const addAnime = (
+    animes: AnimeCard[],
+    anime: AnimeCard
+  ): AnimeCard[] => {
     const newAnimes = [...animes];
     newAnimes.push(anime);
     return newAnimes;
   };
 
-  export const removeAnime = (animes: Anime[]): Anime[] => {
-    const newAnimes = [...animes];
-    newAnimes.pop();
-    return newAnimes;
+  export const removeAnime = (
+    currentAnimes: AnimeCard[],
+    animeId: string
+  ): AnimeCard[] => {
+    return currentAnimes.filter((anime) => `${anime.mal_id}` !== animeId);
   };
 }
 
 const useFavouriteAnimeStore = create<State & Action>((set) => ({
-  animes: [],
-  status: "idle",
-  addAnime: (anime: Anime) =>
+  animes: favAnimes,
+  addAnime: (anime: AnimeCard) =>
     set((state) => ({
       ...state,
       animes: StoreFunction.addAnime(state.animes, anime),
     })),
-  removeAnime: () =>
+  removeAnime: (animeId) =>
     set((state) => ({
       ...state,
-      animes: StoreFunction.removeAnime(state.animes),
+      animes: StoreFunction.removeAnime(state.animes, animeId),
     })),
 }));
 

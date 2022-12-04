@@ -1,18 +1,15 @@
 import { Grid, Box, Typography, Stack } from "@mui/material";
 import AnimeCard from "@uikit/card/AnimeCard";
-import { Anime } from "src/types/anime";
 import Link from "next/link";
+import useFavouriteAnimeStore from "@hooks/useFavouriteAnimeStore";
 
 namespace Caption {
   export const favAnimeListTitle = "Favourite Anime List";
   export const favAnimeListDesc = "These are some of your favorites animes";
 }
 
-type Props = {
-  animes: Anime[];
-};
-
-function AnimeList({ animes }: Props) {
+function AnimeList() {
+  const animes = useFavouriteAnimeStore((state) => state.animes);
   return (
     <Box sx={{ pb: 4 }}>
       <Stack spacing={2}>
