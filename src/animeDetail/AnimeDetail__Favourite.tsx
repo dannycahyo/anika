@@ -34,6 +34,7 @@ function FavouriteList({ anime }: Props) {
       {isAnimeAlreadyAdded ? (
         <Button
           variant="contained"
+          color="error"
           startIcon={<RemoveCircleIcon />}
           onClick={() => removeAnime(`${anime.mal_id}`)}
         >
