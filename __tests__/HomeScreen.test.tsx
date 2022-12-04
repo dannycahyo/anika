@@ -3,11 +3,24 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
+import { server } from "../src/mocks/server";
+import { animeList } from "../__mocks__/data/animesList";
 import "@testing-library/jest-dom";
 import HomeScreen from "@home/HomeScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { animesListTitle } from "../__mocks__/data/animesListTitle";
 import "jest-fetch-mock";
+
+beforeAll(() => {
+  server.listen();
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});
 
 describe("Loads and display Home Screen", () => {
   it("Render the content", async () => {
@@ -29,9 +42,9 @@ describe("Loads and display Home Screen", () => {
 
     expect(animesListHeading).toBeInTheDocument();
 
-    animesListTitle.forEach((animeTitle) => {
+    animeList.data.forEach((anime) => {
       const animeName = screen.getByRole("heading", {
-        name: animeTitle,
+        name: anime.title,
       });
 
       expect(animeName).toBeInTheDocument();
