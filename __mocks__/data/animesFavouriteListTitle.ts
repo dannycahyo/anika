@@ -1,0 +1,18 @@
+export const animesFavouriteListTitle = [
+  "Cowboy Bebop",
+  "Cowboy Bebop: Tengoku no Tobira",
+  "Trigun",
+  "Witch Hunter Robin",
+  "Bouken Ou Beet",
+  "Eyeshield 21",
+  "Hachimitsu to Clover",
+  "Hungry Heart: Wild Striker",
+  "Initial D Fourth Stage",
+  "Monster",
+  "Naruto",
+  "One Piece",
+  "Tennis no Ouji-sama",
+  "Ring ni Kakero 1",
+  "School Rumble",
+  "Sunabouzu",
+];

@@ -1,15 +1,18 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import FavouriteScreen from "@favourite/FavouriteScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-jest.mock("next/router", () => require("next-router-mock"));
-jest.mock("next/dist/client/router", () => require("next-router-mock"));
+import { animesFavouriteListTitle } from "../__mocks__/data/animesFavouriteListTitle";
+import "jest-fetch-mock";
 
 describe("Loads and display Favourite Screen", () => {
-  const queryClient = new QueryClient();
-  it("renders favourite screen", async () => {
+  it("Render the content", async () => {
+    const queryClient = new QueryClient();
     render(
       <QueryClientProvider client={queryClient}>
         <FavouriteScreen />
@@ -28,10 +31,16 @@ describe("Loads and display Favourite Screen", () => {
 
     expect(favouriteAnimeListDescription).toBeInTheDocument();
 
-    const loadingText = screen.getByRole("heading", {
-      name: "Loading...",
+    await waitForElementToBeRemoved(screen.queryByText("Loading..."), {
+      timeout: 10000,
     });
 
-    expect(loadingText).toBeInTheDocument();
+    animesFavouriteListTitle.forEach((animeTitle) => {
+      const animeName = screen.getByRole("heading", {
+        name: animeTitle,
+      });
+
+      expect(animeName).toBeInTheDocument();
+    });
   });
 });
