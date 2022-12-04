@@ -144,6 +144,7 @@ function DetailInfo({ anime, isLoading }: Props) {
           alignItems="center"
           sx={{ pt: 2 }}
         >
+          <Typography variant="h5">{title}</Typography>
           <Divider sx={{ my: 1 }} />
           <Stack direction="row" alignItems="center">
             <Stack
