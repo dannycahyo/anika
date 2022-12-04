@@ -25,6 +25,7 @@ namespace Caption {
   export const errorTitle = "Upps, Error!";
   export const errorDesc =
     "There is something wrong when get anime recommendation";
+  export const loadingRecommendedAnime = "Loading Recommended Anime...";
 }
 
 function LeftArrow() {
@@ -72,6 +73,12 @@ function Recommendation() {
       <Typography sx={{ mt: 1, mb: 2, ml: 4 }} variant="h5">
         {Caption.animeRecommendation}
       </Typography>
+      {renderIfTrue(
+        isLoading,
+        <Typography variant="h6" textAlign="center">
+          {Caption.loadingRecommendedAnime}
+        </Typography>
+      )}
       {isError ? (
         <GeneralError
           errorTitle={Caption.errorTitle}

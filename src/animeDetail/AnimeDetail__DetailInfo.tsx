@@ -15,9 +15,12 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Anime } from "src/types/anime";
+import { useQuery } from "@tanstack/react-query";
+import { getAnimeById } from "@utils/fetcher/getAnimeById";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import AnimeLoadingCard from "@uikit/card/AnimeLoadingCard";
+import { animeDefaultValue } from "@utils/constant/animeDefaultValue";
 
 namespace Caption {
   export const year = "Year";
@@ -31,8 +34,11 @@ namespace Caption {
 }
 
 type Props = {
-  anime: Anime;
-  isLoading: boolean;
+  id: string;
+};
+
+type Data = {
+  data: Anime;
 };
 
 type AdditionalInfoProps = {
@@ -57,8 +63,14 @@ function AdditionalInfo({ title, name }: AdditionalInfoProps) {
   );
 }
 
-function DetailInfo({ anime, isLoading }: Props) {
+function DetailInfo({ id }: Props) {
   const router = useRouter();
+  const { data, isLoading } = useQuery<Data>({
+    queryKey: ["animeById"],
+    queryFn: () => getAnimeById(id),
+  });
+
+  const anime = data?.data ?? animeDefaultValue;
 
   const handleBackClick = (): void => router.back();
   const { title, year, score, synopsis, trailer, images, genres, licensors } =

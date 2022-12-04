@@ -24,7 +24,7 @@ namespace Caption {
 }
 
 function AnimeDetailScreen({ id }: Props) {
-  const { data, isLoading, isError } = useQuery<Data>({
+  const { data, isError } = useQuery<Data>({
     queryKey: ["animeById"],
     queryFn: () => getAnimeById(id),
   });
@@ -46,10 +46,7 @@ function AnimeDetailScreen({ id }: Props) {
           errorDescription={Caption.errorDesc}
         />
       ) : (
-        <DetailInfo
-          anime={data?.data ?? animeDefaultValue}
-          isLoading={isLoading}
-        />
+        <DetailInfo id={id} />
       )}
       <Recommendation />
       <FavouriteList anime={data?.data ?? animeDefaultValue} />
