@@ -1,5 +1,12 @@
+import getConfig from "next/config";
+const config = getConfig();
+
 export const getAnimeList = async (page: number) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_ANIME_API}?page=${page}`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`${config.publicRuntimeConfig.url}?page=${page}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("error", err);
+  }
 };

@@ -37,4 +37,6 @@ module.exports = {
   ],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   moduleDirectories: ["node_modules", "src"],
+  automock: false,
+  setupFiles: ["<rootDir>/setupJest.js"],
 };
