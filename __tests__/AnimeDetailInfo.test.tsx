@@ -4,11 +4,24 @@ import {
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { server } from "../src/mocks/server";
 import "../__mocks__/intersectionObserverMock";
 import AnimeDetailInfo from "@animeDetail/AnimeDetail__DetailInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { animeDetail } from "../__mocks__/data/animeDetail";
 import "jest-fetch-mock";
+
+beforeAll(() => {
+  server.listen();
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});
 
 describe("Loads and display Anime Detail Info", () => {
   it("renders the content", async () => {
@@ -56,7 +69,7 @@ describe("Loads and display Anime Detail Info", () => {
 
     expect(animeYear).toBeInTheDocument();
 
-    const animeSynopsis = screen.getByText(animeDetail.synopsis);
+    const animeSynopsis = screen.getByText(animeDetail.synopsis ?? "");
 
     expect(animeSynopsis).toBeInTheDocument();
   });
