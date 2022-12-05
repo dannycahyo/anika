@@ -2,8 +2,10 @@ import {
   render,
   screen,
   waitForElementToBeRemoved,
+  waitFor,
 } from "@testing-library/react";
 import { server } from "../src/mocks/server";
+import { rest } from "msw";
 import { animeList } from "../__mocks__/data/animesList";
 import "@testing-library/jest-dom";
 import HomeScreen from "@home/HomeScreen";
@@ -23,9 +25,8 @@ afterAll(() => {
 });
 
 describe("Loads and display Home Screen", () => {
+  const queryClient = new QueryClient();
   it("Render the content", async () => {
-    const queryClient = new QueryClient();
-
     render(
       <QueryClientProvider client={queryClient}>
         <HomeScreen page="1" />
@@ -49,5 +50,33 @@ describe("Loads and display Home Screen", () => {
 
       expect(animeName).toBeInTheDocument();
     });
+  });
+
+  it("handles server error", async () => {
+    server.use(
+      rest.get("https://api.jikan.moe/v4/anime?page=1", (req, res, ctx) => {
+        return res(ctx.status(500));
+      })
+    );
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <HomeScreen page="1" />
+      </QueryClientProvider>
+    );
+
+    const [errorTitleText, errorDescText] = [
+      "Upps, Error",
+      "There is something wrong with our system. Try Again Later",
+    ];
+
+    const errorTitle = screen.findByText(errorTitleText);
+    const errorDescription = screen.findByText(errorDescText);
+
+    await waitFor(() => errorTitle);
+    await waitFor(() => errorDescription);
+
+    expect(screen.getByText(errorTitleText)).toBeInTheDocument();
+    expect(screen.getByText(errorDescText)).toBeInTheDocument();
   });
 });
