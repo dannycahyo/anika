@@ -13,7 +13,7 @@ type AnimeDetailData = {
 };
 
 export const handlers = [
-  rest.get(`${config.publicRuntimeConfig.url}/21`, (_, res, ctx) => {
+  rest.get(`${config.publicRuntimeConfig.url}/:animeId`, (_, res, ctx) => {
     return res(ctx.json<AnimeDetailData>({ data: animeDetail }));
   }),
 
