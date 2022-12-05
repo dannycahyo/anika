@@ -28,7 +28,6 @@ namespace Caption {
   export const back = "Back";
   export const animeDetail = "Anime Detail";
   export const synopsis = "Synopsis";
-  export const imageAlt = "anime image";
   export const genres = "Genres";
   export const licensors = "Licensors";
 }
@@ -73,16 +72,13 @@ function DetailInfo({ id }: Props) {
   const anime = data?.data ?? animeDefaultValue;
 
   const handleBackClick = (): void => router.back();
+
   const { title, year, score, synopsis, trailer, images, genres, licensors } =
     anime;
 
   const [isOpenVideo, setIsOpenVideo] = React.useState<boolean>(false);
-  const handleClose = () => {
-    setIsOpenVideo(false);
-  };
-  const handleToggle = () => {
-    setIsOpenVideo(!isOpenVideo);
-  };
+  const handleClose = (): void => setIsOpenVideo(false);
+  const handleToggle = (): void => setIsOpenVideo(!isOpenVideo);
 
   const isMobileSize = useMediaQuery("(max-width:460px)");
 
@@ -125,7 +121,7 @@ function DetailInfo({ id }: Props) {
             ) : (
               <Image
                 src={images.webp.large_image_url ?? ""}
-                alt={Caption.imageAlt}
+                alt={title}
                 height={260}
                 width={isMobileSize ? 300 : 340}
               />
@@ -148,6 +144,7 @@ function DetailInfo({ id }: Props) {
             </Backdrop>
           </Box>
         </Grid>
+
         <Grid
           item
           sm={10}

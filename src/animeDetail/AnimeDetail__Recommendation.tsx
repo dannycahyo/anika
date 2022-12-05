@@ -50,7 +50,7 @@ function RightArrow() {
   return (
     <IconButton
       disabled={isLastItemVisible}
-      aria-label="back-button"
+      aria-label="next-button"
       color="primary"
       onClick={() => scrollNext()}
     >
