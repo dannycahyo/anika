@@ -1,11 +1,12 @@
-import AnimeDetailScreen from "@animeDetail/AnimeDetailScreen";
+import AnimeDetailScreen, {
+  Props as AnimeDetailScreenProps,
+} from "@animeDetail/AnimeDetailScreen";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { getAnimeById } from "@utils/fetcher/getAnimeById";
+import { MainProps } from "pages/_app";
 import { GetServerSideProps } from "next";
 
-type Props = {
-  id: string;
-};
+type Props = MainProps & AnimeDetailScreenProps;
 
 type Params = {
   id: string;
@@ -20,11 +21,11 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
 }) => {
   const queryClient = new QueryClient();
   const id = params?.id ?? "";
-  await queryClient.prefetchQuery(["animeById"], () => getAnimeById(id));
+  await queryClient.prefetchQuery(["animeById", id], () => getAnimeById(id));
 
   return {
     props: {
-      dehydrate: dehydrate(queryClient),
+      dehydratedState: dehydrate(queryClient),
       id,
     },
   };

@@ -65,7 +65,7 @@ function AdditionalInfo({ title, name }: AdditionalInfoProps) {
 function DetailInfo({ id }: Props) {
   const router = useRouter();
   const { data, isLoading } = useQuery<Data>({
-    queryKey: ["animeById"],
+    queryKey: ["animeById", id],
     queryFn: () => getAnimeById(id),
   });
 

@@ -9,7 +9,7 @@ import Favourite from "@animeDetail/AnimeDetail__Favourite";
 import Recommendation from "@animeDetail/AnimeDetail__Recommendation";
 import GeneralError from "@uikit/error/GeneralError";
 
-type Props = {
+export type Props = {
   id: string;
 };
 
@@ -25,18 +25,9 @@ namespace Caption {
 
 function AnimeDetailScreen({ id }: Props) {
   const { data, isError } = useQuery<Data>({
-    queryKey: ["animeById"],
+    queryKey: ["animeById", id],
     queryFn: () => getAnimeById(id),
   });
-
-  const queryClient = useQueryClient();
-
-  React.useEffect(() => {
-    queryClient.fetchQuery({
-      queryKey: ["animeById"],
-      queryFn: () => getAnimeById(id),
-    });
-  }, [id, queryClient]);
 
   const { title, score, mal_id, images } = data?.data ?? animeDefaultValue;
 
