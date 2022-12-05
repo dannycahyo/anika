@@ -31,7 +31,7 @@ describe("Loads and display Home Screen", () => {
   it("Render the content", async () => {
     render(
       <QueryClientProvider client={queryClient}>
-        <HomeScreen page="1" />
+        <HomeScreen page={1} />
       </QueryClientProvider>
     );
 
@@ -54,31 +54,5 @@ describe("Loads and display Home Screen", () => {
     });
   });
 
-  it("handles server error", async () => {
-    server.use(
-      rest.get(`${config.publicRuntimeConfig.url}?page=1`, (req, res, ctx) => {
-        return res(ctx.status(500));
-      })
-    );
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <HomeScreen page="1" />
-      </QueryClientProvider>
-    );
-
-    const [errorTitleText, errorDescText] = [
-      "Upps, Error",
-      "There is something wrong with our system. Try Again Later",
-    ];
-
-    const errorTitle = screen.findByText(errorTitleText);
-    const errorDescription = screen.findByText(errorDescText);
-
-    await waitFor(() => errorTitle);
-    await waitFor(() => errorDescription);
-
-    expect(screen.getByText(errorTitleText)).toBeInTheDocument();
-    expect(screen.getByText(errorDescText)).toBeInTheDocument();
-  });
+  // TODO: Handle case when the server response error
 });
