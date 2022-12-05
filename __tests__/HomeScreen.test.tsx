@@ -11,6 +11,8 @@ import "@testing-library/jest-dom";
 import HomeScreen from "@home/HomeScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "jest-fetch-mock";
+import getConfig from "next/config";
+const config = getConfig();
 
 beforeAll(() => {
   server.listen();
@@ -54,7 +56,7 @@ describe("Loads and display Home Screen", () => {
 
   it("handles server error", async () => {
     server.use(
-      rest.get("https://api.jikan.moe/v4/anime?page=1", (req, res, ctx) => {
+      rest.get(`${config.publicRuntimeConfig.url}?page=1`, (req, res, ctx) => {
         return res(ctx.status(500));
       })
     );
