@@ -6,12 +6,17 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@theme/theme";
 import {
+  DehydratedState,
   Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 
-export default function MyApp(props: AppProps) {
+export type MainProps = {
+  dehydratedState: DehydratedState;
+};
+
+export default function MyApp(props: AppProps<MainProps>) {
   const { Component, pageProps } = props;
   const [queryClient] = React.useState(() => new QueryClient());
 

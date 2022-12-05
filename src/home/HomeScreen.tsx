@@ -15,8 +15,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-type Props = {
-  page: string;
+export type HomeScreenProps = {
+  page: number;
 };
 
 type Data = {
@@ -24,31 +24,24 @@ type Data = {
   pagination: Pagination;
 };
 
-function HomePage({ page }: Props) {
+function HomePage({ page }: HomeScreenProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const isMobileSize = useMediaQuery("(max-width:460px)");
 
   const { data, isLoading, isError } = useQuery<Data>({
-    queryKey: ["animes"],
-    queryFn: () => getAnimeList(parseInt(page)),
+    queryKey: ["animes", page],
+    queryFn: () => getAnimeList(page),
     keepPreviousData: true,
     staleTime: 5000,
   });
-
-  React.useEffect(() => {
-    queryClient.fetchQuery({
-      queryKey: ["animes"],
-      queryFn: () => getAnimeList(parseInt(page)),
-    });
-  }, [page, queryClient]);
 
   // Prefetch the next page in the background!
   React.useEffect(() => {
     if (data?.pagination.has_next_page) {
       queryClient.prefetchQuery(["animes", page + 1], () =>
-        getAnimeList(parseInt(page) + 1)
+        getAnimeList(page + 1)
       );
     }
   }, [data, page, queryClient]);
