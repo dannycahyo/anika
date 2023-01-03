@@ -4,7 +4,7 @@
 
 ### Home
 
-- Has list of movie
+- Has list of movies
 - Has pagination
 
 ### Anime Detail
@@ -16,7 +16,7 @@
 
 ### Favourite
 
-- Has list of favourite movie
+- Has list of favourite movies
 
 ## Available Scripts
 
